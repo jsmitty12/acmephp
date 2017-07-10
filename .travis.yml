@@ -41,7 +41,14 @@ before_install:
     - if [[ ! $deps ]]; then composer install --no-interaction --no-progress --ansi; fi
     - ./tests/setup.sh
 
-script: ./tests/run.sh
+script:
+  - mkdir -p build/logs
+  - ./tests/run.sh --coverage-clover build/logs/clover.xml
 
 notifications:
     email: false
+
+after_success:
+  - travis_retry wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
+  - travis_retry php coveralls.phar -v
+
