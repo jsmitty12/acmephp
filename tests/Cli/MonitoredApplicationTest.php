@@ -121,7 +121,7 @@ class MonitoredApplicationTest extends AbstractApplicationTest
         // Replace handlers builders by mocks
         $handler = new TestHandler();
 
-        $handlerBuilder = $this->getMock(HandlerBuilderInterface::class);
+        $handlerBuilder = $this->getMockBuilder(HandlerBuilderInterface::class)->getMock();
         $handlerBuilder
             ->expects($this->exactly(2))
             ->method('createHandler')
