@@ -225,15 +225,15 @@ abstract class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
             throw new \RuntimeException('Unable to find PHP binary to start server.');
         }
 
-        return (new ProcessBuilder('exec ' . $binary))
-            ->setArguments(
-                [
-                    '-S',
-                    $listen,
-                    '-t',
-                    $documentRoot,
-                ]
-            )
+        return (new ProcessBuilder(
+            [
+                'exec '.$binary,
+                '-S',
+                $listen,
+                '-t',
+                $documentRoot,
+            ]
+        ))
             ->getProcess();
     }
 
