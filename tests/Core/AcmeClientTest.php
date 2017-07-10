@@ -28,6 +28,7 @@ use AcmePhp\Ssl\Signer\DataSigner;
 use GuzzleHttp\Client;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
 class AcmeClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -148,20 +149,16 @@ class AcmeClientTest extends \PHPUnit_Framework_TestCase
             throw new \RuntimeException('Unable to find PHP binary to start server.');
         }
 
-        $script = implode(
-            ' ',
-            array_map(
-                ['Symfony\Component\Process\ProcessUtils', 'escapeArgument'],
+        return (new ProcessBuilder($binary))
+            ->setPrefix('exec')
+            ->setArguments(
                 [
-                    $binary,
                     '-S',
                     $listen,
                     '-t',
                     $documentRoot,
                 ]
             )
-        );
-
-        return new Process('exec '.$script, $documentRoot, null, null, null);
+            ->getProcess();
     }
 }
