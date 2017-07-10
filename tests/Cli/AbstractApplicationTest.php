@@ -16,6 +16,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 use Tests\AcmePhp\Cli\Mock\AbstractTestApplication;
 use Tests\AcmePhp\Cli\Mock\SimpleApplication;
 use Webmozart\PathUtil\Path;
@@ -224,15 +225,16 @@ abstract class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
             throw new \RuntimeException('Unable to find PHP binary to start server.');
         }
 
-        $script = implode(' ', array_map(['Symfony\Component\Process\ProcessUtils', 'escapeArgument'], [
-            $binary,
-            '-S',
-            $listen,
-            '-t',
-            $documentRoot,
-        ]));
-
-        return new Process('exec '.$script, $documentRoot, null, null, null);
+        return (new ProcessBuilder('exec ' . $binary))
+            ->setArguments(
+                [
+                    '-S',
+                    $listen,
+                    '-t',
+                    $documentRoot,
+                ]
+            )
+            ->getProcess();
     }
 
     /**
