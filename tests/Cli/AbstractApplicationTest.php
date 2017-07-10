@@ -227,13 +227,14 @@ abstract class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
 
         return (new ProcessBuilder(
             [
-                'exec '.$binary,
+                $binary,
                 '-S',
                 $listen,
                 '-t',
                 $documentRoot,
             ]
         ))
+            ->setPrefix('exec')
             ->getProcess();
     }
 
