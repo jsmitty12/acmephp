@@ -11,6 +11,8 @@ cache:
         - $HOME/.composer/cache/files
 
 matrix:
+    allow_failures:
+      - php: nightly
     include:
         - php: 5.5
           services:
@@ -23,6 +25,10 @@ matrix:
           services:
             - docker
         - php: 7.1
+          env: deps=high
+          services:
+            - docker
+        - php: nightly
           env: deps=high
           services:
             - docker
