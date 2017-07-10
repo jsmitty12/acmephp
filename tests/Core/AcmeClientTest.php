@@ -149,10 +149,11 @@ class AcmeClientTest extends \PHPUnit_Framework_TestCase
             throw new \RuntimeException('Unable to find PHP binary to start server.');
         }
 
-        return (new ProcessBuilder($binary))
+        return (new ProcessBuilder())
             ->setPrefix('exec')
             ->setArguments(
                 [
+                    $binary,
                     '-S',
                     $listen,
                     '-t',
