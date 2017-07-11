@@ -234,7 +234,6 @@ abstract class AbstractApplicationTest extends \PHPUnit_Framework_TestCase
                 $documentRoot,
             ]
         ))
-            ->setPrefix('exec')
             ->getProcess();
     }
 

@@ -150,7 +150,6 @@ class AcmeClientTest extends \PHPUnit_Framework_TestCase
         }
 
         return (new ProcessBuilder())
-            ->setPrefix('exec')
             ->setArguments(
                 [
                     $binary,
